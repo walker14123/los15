@@ -16,17 +16,18 @@
     <!-- FontAwesome para Iconografía -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Configuración del Tema Basado en Fixdate (Lavanda/Morado) -->
+    <!-- Configuración del Tema -->
+    <!-- PARA GITHUB: Puedes mantener esto en el HTML si usas el CDN de Tailwind, o pasarlo a un tailwind.config.js si usas Node.js -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
                         brand: {
-                            light: '#f5f0f8',     // Fondo lavanda pálido
-                            primary: '#473a6c',   // Morado oscuro (Títulos, botones)
-                            secondary: '#786996', // Lila medio (Líneas, textos secundarios)
-                            card: '#e3dce8'       // Gris/Lila claro para badges de invitados
+                            light: '#f5f0f8',
+                            primary: '#473a6c',
+                            secondary: '#786996',
+                            card: '#e3dce8'
                         }
                     },
                     fontFamily: {
@@ -38,64 +39,17 @@
         }
     </script>
 
-    <style>
-        body { background-color: #f5f0f8; }
-        
-        .fade-in-up { animation: fadeInUp 1s ease-out forwards; }
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        body.modal-open { overflow: hidden; }
-
-        /* Overlay oscuro/morado para la Hero Image */
-        .hero-overlay {
-            background: linear-gradient(to bottom, rgba(45,35,66,0.3) 0%, rgba(45,35,66,0.6) 60%, rgba(245,240,248,1) 100%);
-        }
-
-        /* Líneas horizontales finas estilo clásico */
-        .hr-elegant {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.7), rgba(255,255,255,0));
-            margin: 10px 0;
-        }
-        
-        .hr-elegant-dark {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(71,58,108,0), rgba(71,58,108,0.4), rgba(71,58,108,0));
-            margin: 10px 0;
-            width: 80%;
-        }
-
-        /* Placeholder para el borde floral (Reemplazar URL con tu imagen real de flores) */
-        .floral-divider {
-            width: 100%;
-            height: 80px;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg"><path d="M0,10 Q25,20 50,10 T100,10" fill="none" stroke="%23786996" stroke-width="0.5" stroke-dasharray="2,2"/></svg>');
-            background-repeat: repeat-x;
-            background-size: contain;
-            background-position: center;
-            opacity: 0.6;
-        }
-
-        /* Modales */
-        dialog::backdrop {
-            background-color: rgba(30, 25, 45, 0.8);
-            backdrop-filter: blur(5px);
-        }
-    </style>
+    <link rel="stylesheet" href="./assets/css/styles.css">
 </head>
 <body class="text-brand-primary antialiased modal-open">
 
+    <!-- AUDIO -->
     <audio id="bg-music" loop>
-        <!-- Reemplaza con tu archivo de música real -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- PARA GITHUB: Ruta actualizada apuntando a la carpeta assets -->
+        <source src="./assets/media/musica-fondo.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- 1. PANTALLA DE BIENVENIDA (SPLASH SCREEN - Ref 1.png) -->
+    <!-- 1. PANTALLA DE BIENVENIDA (SPLASH SCREEN) -->
     <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-brand-light transition-opacity duration-700">
         <div class="text-center px-6 w-full max-w-md">
             <p class="font-sans text-brand-secondary text-sm md:text-base mb-2">Bienvenidos a la invitación de</p>
@@ -119,8 +73,9 @@
         </div>
     </div>
 
-    <!-- 2. HERO SECTION (Ref 2.jpg) -->
-    <header class="relative w-full h-screen bg-cover bg-top bg-no-repeat flex flex-col justify-between" style="background-image: url('2.jpeg');">
+    <!-- 2. HERO SECTION -->
+    <!-- PARA GITHUB: Ruta de la imagen principal actualizada a ./assets/img/... -->
+    <header class="relative w-full h-screen bg-cover bg-top bg-no-repeat flex flex-col justify-between" style="background-image: url('./assets/img/hero-karol.jpg');">
         <div class="absolute inset-0 hero-overlay z-0"></div>
         
         <!-- Botón Música Flotante -->
@@ -144,48 +99,34 @@
             </p>
         </div>
 
-        <!-- Divisor Floral Base de Header (Ref 3.jpg) -->
+        <!-- Divisor Floral Base de Header -->
         <div class="relative z-10 w-full mb-[-1px]">
-            <!-- Aquí puedes inyectar tu imagen <img> de flores moradas. Uso un bloque CSS como placeholder. -->
             <div class="floral-divider"></div>
         </div>
     </header>
 
     <main class="w-full max-w-3xl mx-auto px-4 pb-20">
         
-        <!-- 3. CONTADOR MINIMALISTA (Ref 3.jpg) -->
+        <!-- 3. CONTADOR MINIMALISTA -->
         <section class="py-16 text-center">
             <h3 class="font-serif text-5xl md:text-6xl text-brand-primary mb-10">Falta</h3>
             
             <div id="cuenta-regresiva" class="flex justify-center items-center text-brand-primary">
-                <!-- Días -->
                 <div class="w-20 md:w-24 text-center">
                     <span class="block text-4xl md:text-5xl font-light" id="dias">00</span>
                     <span class="text-sm text-brand-secondary mt-1 block">días</span>
                 </div>
-                
-                <!-- Separador -->
                 <div class="w-[1px] h-12 bg-brand-secondary/40 mx-2 md:mx-4"></div>
-                
-                <!-- Horas -->
                 <div class="w-20 md:w-24 text-center">
                     <span class="block text-4xl md:text-5xl font-light" id="horas">00</span>
                     <span class="text-sm text-brand-secondary mt-1 block">hs</span>
                 </div>
-                
-                <!-- Separador -->
                 <div class="w-[1px] h-12 bg-brand-secondary/40 mx-2 md:mx-4"></div>
-                
-                <!-- Minutos -->
                 <div class="w-20 md:w-24 text-center">
                     <span class="block text-4xl md:text-5xl font-light" id="minutos">00</span>
                     <span class="text-sm text-brand-secondary mt-1 block">min</span>
                 </div>
-                
-                <!-- Separador -->
                 <div class="w-[1px] h-12 bg-brand-secondary/40 mx-2 md:mx-4"></div>
-                
-                <!-- Segundos -->
                 <div class="w-20 md:w-24 text-center">
                     <span class="block text-4xl md:text-5xl font-light" id="segundos">00</span>
                     <span class="text-sm text-brand-secondary mt-1 block">seg</span>
@@ -195,10 +136,9 @@
             <i class="fa-solid fa-heart text-brand-primary mt-10 text-xl opacity-80"></i>
         </section>
 
-        <!-- Divisor floral entre secciones -->
         <div class="floral-divider my-4"></div>
 
-        <!-- 4. SECCIÓN DE INVITADOS (Ref 4.png) -->
+        <!-- 4. SECCIÓN DE INVITADOS -->
         <section class="py-12 text-center">
             <div class="w-12 h-12 bg-[#b8a9c9] text-white rounded-full flex items-center justify-center mx-auto text-xl font-serif mb-6 shadow-sm">
                 4
@@ -207,7 +147,6 @@
             <h3 class="font-serif text-4xl text-brand-primary uppercase tracking-widest mb-1">INVITADOS</h3>
             <p class="text-brand-secondary text-sm mb-8">(3 acompañantes)</p>
             
-            <!-- Lista de Nombres -->
             <div class="flex flex-col gap-3 items-center w-full max-w-xs mx-auto mb-10">
                 <div class="bg-brand-card w-full py-2.5 rounded-md text-brand-primary font-serif text-lg shadow-sm">
                     Familia García (Ejemplo)
@@ -226,7 +165,6 @@
             <p class="text-brand-secondary text-sm">Tu presencia es lo más importante. ¡No faltes!</p>
         </section>
 
-        <!-- Divisor floral -->
         <div class="floral-divider my-4"></div>
 
         <!-- 5. DETALLES DEL EVENTO -->
@@ -234,7 +172,6 @@
             <h3 class="font-serif text-4xl text-brand-primary mb-12">Fiesta</h3>
 
             <div class="space-y-12 max-w-md mx-auto">
-                <!-- Bloque Día -->
                 <div>
                     <p class="text-xs font-bold uppercase tracking-widest text-brand-secondary mb-2">Día</p>
                     <p class="font-serif text-2xl text-brand-primary mb-3">Sábado 16 de Mayo - 10:30 am</p>
@@ -243,7 +180,6 @@
                     </a>
                 </div>
 
-                <!-- Bloque Lugar -->
                 <div>
                     <p class="text-xs font-bold uppercase tracking-widest text-brand-secondary mb-2">Lugar</p>
                     <p class="font-serif text-2xl text-brand-primary mb-1">Estadero al otro lado del río</p>
@@ -255,12 +191,10 @@
             </div>
         </section>
 
-        <!-- Divisor floral -->
         <div class="floral-divider my-4"></div>
 
         <!-- 6. TARJETAS INTERACTIVAS (Dress Code / Regalos / Confirmar) -->
         <section class="py-12 space-y-10">
-            <!-- Confirmar Asistencia -->
             <div class="text-center">
                 <h3 class="font-serif text-4xl text-brand-primary mb-4">Confirmación de asistencia</h3>
                 <p class="text-brand-secondary text-sm mb-6">Es importante que confirmes tu asistencia</p>
@@ -269,9 +203,7 @@
                 </a>
             </div>
 
-            <!-- Grid de Utilidades -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-8">
-                <!-- Dress Code -->
                 <div class="text-center">
                     <i class="fa-solid fa-user-tie text-3xl text-brand-secondary mb-4"></i>
                     <h4 class="font-serif text-2xl text-brand-primary mb-2">Dress Code</h4>
@@ -279,7 +211,6 @@
                     <button onclick="document.getElementById('modal-dress').showModal()" class="text-brand-primary text-sm font-bold uppercase border-b border-brand-primary pb-1">Ver más</button>
                 </div>
 
-                <!-- Regalos -->
                 <div class="text-center">
                     <i class="fa-solid fa-gift text-3xl text-brand-secondary mb-4"></i>
                     <h4 class="font-serif text-2xl text-brand-primary mb-2">Regalos</h4>
@@ -297,11 +228,7 @@
         <p class="text-[10px] text-gray-400">Desarrollado con ♥ para una noche mágica</p>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- MODALES NATIVOS                            -->
-    <!-- ========================================== -->
-
-    <!-- Modal Dress Code -->
+    <!-- MODALES NATIVOS -->
     <dialog id="modal-dress" class="p-8 rounded-xl shadow-2xl w-[90%] max-w-sm m-auto border-0 bg-brand-light text-center relative">
         <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-brand-secondary hover:text-brand-primary">
             <i class="fa-solid fa-xmark text-xl"></i>
@@ -313,7 +240,6 @@
         </p>
     </dialog>
 
-    <!-- Modal Regalos -->
     <dialog id="modal-regalos" class="p-8 rounded-xl shadow-2xl w-[90%] max-w-sm m-auto border-0 bg-brand-light text-center relative">
         <button onclick="this.closest('dialog').close()" class="absolute top-4 right-4 text-brand-secondary hover:text-brand-primary">
             <i class="fa-solid fa-xmark text-xl"></i>
@@ -327,86 +253,6 @@
         </div>
     </dialog>
 
-    <!-- ========================================== -->
-    <!-- SCRIPTS                                    -->
-    <!-- ========================================== -->
-    <script>
-        // Control de Audio y Splash Screen
-        let isMusicPlaying = false;
-        const audio = document.getElementById('bg-music');
-        const btnToggle = document.getElementById('btn-music-toggle');
-
-        function ingresar(conMusica) {
-            const splash = document.getElementById('splash-screen');
-            
-            if (conMusica) {
-                audio.play().catch(e => console.log("Bloqueado por navegador", e));
-                isMusicPlaying = true;
-                btnToggle.innerHTML = '<i class="fa-solid fa-music"></i>';
-            } else {
-                btnToggle.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
-            }
-            
-            btnToggle.classList.remove('hidden'); // Mostrar botón flotante
-            
-            splash.style.opacity = '0';
-            setTimeout(() => {
-                splash.style.display = 'none';
-                document.body.classList.remove('modal-open');
-            }, 700);
-        }
-
-        function toggleMusic() {
-            if (isMusicPlaying) {
-                audio.pause();
-                btnToggle.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
-            } else {
-                audio.play();
-                btnToggle.innerHTML = '<i class="fa-solid fa-music"></i>';
-            }
-            isMusicPlaying = !isMusicPlaying;
-        }
-
-        // Lógica del Contador
-        document.addEventListener('DOMContentLoaded', () => {
-            const fechaEvento = new Date(2026, 4, 16, 10, 30).getTime();
-            
-            const actualizarContador = () => {
-                const ahora = new Date().getTime();
-                const distancia = fechaEvento - ahora;
-
-                if (distancia < 0) return;
-
-                const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-                const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
-                const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
-
-                document.getElementById('dias').textContent = dias.toString().padStart(2, '0');
-                document.getElementById('horas').textContent = horas.toString().padStart(2, '0');
-                document.getElementById('minutos').textContent = minutos.toString().padStart(2, '0');
-                document.getElementById('segundos').textContent = segundos.toString().padStart(2, '0');
-            };
-
-            actualizarContador();
-            setInterval(actualizarContador, 1000);
-        });
-
-        function agendarEvento(e) {
-            e.preventDefault();
-            const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mis+15+Años+-+Karol&dates=20260516T153000Z/20260516T230000Z&location=Pore,+Casanare';
-            window.open(url, '_blank');
-        }
-
-        // Cierre de modales al hacer clic fuera
-        document.querySelectorAll('dialog').forEach(dialog => {
-            dialog.addEventListener('click', (e) => {
-                const rect = dialog.getBoundingClientRect();
-                if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
-                    dialog.close();
-                }
-            })
-        });
-    </script>
+      <script src="./assets/js/main.js"></script>
 </body>
 </html>
