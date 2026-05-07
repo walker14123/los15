@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 15 - Karol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --rosa-fuerte: #d44d82;
+            --rosa-claro: #fdf5f7;
+            --dorado: #c5a059;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--rosa-claro);
+            color: #333;
+            text-align: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 50px 20px;
+            background: white;
+        }
+
+        h1 { 
+            font-family: 'Great Vibes', cursive; 
+            font-size: 5rem; 
+            color: var(--rosa-fuerte);
+            margin: 10px 0;
+        }
+
+        .subtitulo { font-size: 1.5rem; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* Frase */
+        .frase {
+            font-style: italic;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Contador */
+        #cuenta-regresiva {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .tiempo-box {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            min-width: 70px;
+        }
+
+        .numero { display: block; font-size: 2rem; font-weight: bold; color: var(--rosa-fuerte); }
+
+        /* Detalles */
+        .detalles {
+            background: white;
+            padding: 40px 20px;
+            margin: 20px;
+            border-radius: 20px;
+            border: 2px solid var(--rosa-claro);
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 30px;
+            background: var(--rosa-fuerte);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: transform 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover { transform: scale(1.05); background: #b83b6d; }
+        
+        .btn-google { background: var(--dorado); }
+
+        .flores { max-width: 200px; margin: 20px auto; }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <p class="subtitulo">Mis 15</p>
+        <h1>Karol</h1>
+        <p class="frase">
+            "Agradezco a Dios por guiar mis pasos hasta este día y por permitirme celebrar esta hermosa etapa junto a las personas que quiero."
+        </p>
+    </section>
+
+    <div id="cuenta-regresiva">
+        <div class="tiempo-box"><span class="numero" id="dias">00</span>Días</div>
+        <div class="tiempo-box"><span class="numero" id="horas">00</span>Hs</div>
+        <div class="tiempo-box"><span class="numero" id="minutos">00</span>Min</div>
+    </div>
+
+    <section class="detalles">
+        <h3>¿Cuándo?</h3>
+        <p>16 de Mayo, 2026 [cite: 13]</p>
+        <p>Hora: 10:30 am [cite: 14]</p>
+        <hr style="width: 50%; opacity: 0.2;">
+        <h3>¿Dónde?</h3>
+        <p>ESTADERO AL OTRO LADO DEL RIO- PORE </p>
+        
+        <a href="https://www.google.com/maps/search/Estadero+al+otro+lado+del+rio+Pore" target="_blank" class="btn btn-google">
+            📍 Ver Ubicación en Maps
+        </a>
+    </section>
+
+    <section style="padding: 40px 20px;">
+        <p><strong>Lluvia de sobres</strong> [cite: 19]</p>
+        <p>Favor confirmar asistencia [cite: 17]</p>
+        <a href="https://wa.me/573123616566?text=Hola%20Karol,%20confirmo%20mi%20asistencia%20a%20tus%2015" class="btn">
+            📱 Confirmar por WhatsApp
+        </a>
+    </section>
+
+    <script>
+        // Configura la fecha aquí (Año, Mes-1, Día) -> Mayo es mes 4 en JavaScript
+        const fechaEvento = new Date(2026, 4, 16, 10, 30).getTime();
+
+        const x = setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaEvento - ahora;
+
+            const d = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const h = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+
+            document.getElementById("dias").innerHTML = d;
+            document.getElementById("horas").innerHTML = h;
+            document.getElementById("minutos").innerHTML = m;
+
+            if (distancia < 0) {
+                clearInterval(x);
+                document.getElementById("cuenta-regresiva").innerHTML = "¡HOY ES EL GRAN DÍA!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
