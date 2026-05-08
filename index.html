@@ -41,10 +41,6 @@
         }
     </script>
 
-    <!-- ========================================================================================= -->
-    <!-- FRAGMENTACIÓN CSS: Corta el contenido de <style> y pégalo en: ./assets/css/styles.css     -->
-    <!-- Luego reemplaza esta etiqueta por: <link rel="stylesheet" href="./assets/css/styles.css"> -->
-    <!-- ========================================================================================= -->
     <style>
         body { background-color: #f5f0f8; }
         
@@ -116,8 +112,6 @@
     <!-- PORTADA / HERO (CENTRAD0 Y SIN PARALLAX) -->
     <header class="relative w-full h-screen bg-cover bg-center bg-no-repeat flex flex-col justify-between" style="background-image: url('./assets/img/hero_karol.jpg');">
         
-        <!-- FLORES ARRIBA, ELIMINADO -->
-               
         <div class="absolute inset-0 hero-overlay z-0"></div>
 
         <div class="relative z-10 text-center px-4 w-full max-w-2xl mx-auto flex-grow flex flex-col justify-center items-center mt-10">
@@ -168,8 +162,39 @@
         <section class="py-12 text-center px-4">
             <h3 class="font-serif text-4xl text-brand-primary mb-2">Banda Sonora</h3>
             <p class="text-brand-secondary text-sm mb-8">Dale play y acompáñame con esta canción especial</p>
-            <div class="max-w-md mx-auto bg-white p-2 rounded-xl shadow-md border border-brand-card">
-                <iframe width="100%" height="174" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" src="https://open.spotify.com/embed/track/0Gl5s8IhMmQE5YQwM8Qx1J?utm_source=generator" style="border:none; border-radius: 8px;"></iframe>
+            
+            <div class="max-w-md mx-auto bg-white p-2 rounded-2xl shadow-md border border-brand-card">
+                <div class="bg-[#121b36] rounded-xl p-4 flex items-center relative overflow-hidden text-left h-36">
+                    <div class="absolute top-3 right-3 text-white">
+                        <i class="fa-brands fa-spotify text-xl"></i>
+                    </div>
+
+                    <!-- Portada de la canción -->
+                    <img src="./assets/img/portada-cancion.jpg" alt="Portada" class="w-24 h-24 rounded-md shadow-lg mr-4 object-cover">
+
+                    <!-- Textos de la canción -->
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold text-lg leading-tight mb-1 tracking-wide">Never Enough</h4>
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="bg-white/20 text-white text-[10px] px-1.5 py-0.5 rounded font-semibold">Muestra</span>
+                            <p class="text-white/80 text-sm">Loren Allred</p>
+                        </div>
+                        
+                        <div class="text-white text-xs flex items-center gap-2 font-semibold">
+                            <i class="fa-regular fa-circle-plus text-lg"></i> Mi canción favorita
+                        </div>
+                    </div>
+
+                    <!-- Botón interactivo de Play/Pause -->
+                    <button id="btn-reproductor" onclick="alternarMusica()" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#121b36] hover:scale-105 transition shadow-lg absolute bottom-4 right-4">
+                        <i id="icono-musica" class="fa-solid fa-play ml-1 text-lg"></i>
+                    </button>
+                </div>
+
+                <!-- El reproductor real (Oculto) -->
+                <audio id="miMusica" loop>
+                    <source src="./assets/audio/tu-cancion.mp3" type="audio/mpeg">
+                </audio>
             </div>
         </section>
 
@@ -309,15 +334,42 @@
         <div class="bg-white border border-[#e3dce8] rounded-md p-4"><p class="font-serif text-xl text-brand-primary">Lluvia de Sobres</p></div>
     </dialog>
 
-    <!-- ========================================================================================= -->
-    <!-- FRAGMENTACIÓN JS: Corta el contenido de <script> y pégalo en: ./assets/js/main.js         -->
-    <!-- Luego reemplaza esta etiqueta por: <script src="./assets/js/main.js"></script>            -->
-    <!-- ========================================================================================= -->
     <script>
         function ingresar() {
             const splash = document.getElementById('splash-screen');
             splash.style.opacity = '0';
-            setTimeout(() => { splash.style.display = 'none'; document.body.classList.remove('modal-open'); }, 700);
+            
+            // Conectar el audio automático al entrar
+            const audio = document.getElementById('miMusica');
+            const icono = document.getElementById("icono-musica");
+            
+            if (audio) {
+                audio.play().catch(e => console.log("El navegador bloqueó el autoplay", e));
+                if (icono) {
+                    icono.classList.remove("fa-play", "ml-1");
+                    icono.classList.add("fa-pause");
+                }
+            }
+
+            setTimeout(() => { 
+                splash.style.display = 'none'; 
+                document.body.classList.remove('modal-open'); 
+            }, 700);
+        }
+
+        function alternarMusica() {
+            const audio = document.getElementById("miMusica");
+            const icono = document.getElementById("icono-musica");
+
+            if (audio.paused) {
+                audio.play();
+                icono.classList.remove("fa-play", "ml-1");
+                icono.classList.add("fa-pause");
+            } else {
+                audio.pause();
+                icono.classList.remove("fa-pause");
+                icono.classList.add("fa-play", "ml-1");
+            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
